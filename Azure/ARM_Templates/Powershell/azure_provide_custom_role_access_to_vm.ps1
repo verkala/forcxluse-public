@@ -118,7 +118,7 @@ try {
 				++$res_count
 				$ReservationOrderID = $Reservation.Id
 				$reservationStatus = $Reservation.ProvisioningState
-				$assignReservationIDReaderRole = New-AzRoleAssignment -Scope $ReservationOrderID -ObjectId $getVMSAMIID -RoleDefinitionName "Reader"
+				#$assignReservationIDReaderRole = New-AzRoleAssignment -Scope $ReservationOrderID -ObjectId $getVMSAMIID -RoleDefinitionName "Reader"
 				$output = $output + $OFS + "$res_count. Reader Role access assigned to $getVMName VM at $ReservationOrderID level"
 			}
 		}
