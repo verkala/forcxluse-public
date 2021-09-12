@@ -5,11 +5,11 @@ $DeploymentScriptOutputs = @{}
 try {
     $output = "VM Name={0}, and ResourceGroup={1}" -f $getVMName, $getResourceGroup
     $output = $output + $OFS + "Ganesh Verkala"
-    #Write-Output $output
 }
 catch {
     $output = $output + $OFS + "Error Message: $_"
 }
 Finally {
+    Write-Output $output
     $DeploymentScriptOutputs['text'] = $output
 }
