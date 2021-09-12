@@ -20,7 +20,7 @@ try {
 		#$getResourceGroup = Read-Host "Enter VM Resource Group name"
 		$checkVMExistance = Get-AzVM -ResourceGroupName $getResourceGroup -Name $getVMName -ErrorVariable notPresent -ErrorAction SilentlyContinue
 		if ($notPresent) {
-			$output = $output + $OFS + "ERROR: VM $getVMName and/or Resource Group $getResourceGroup does not exists. Re-run script with correct details"
+			$output = $output + $OFS + "ERROR: VM '$notPresent' $getVMName and/or Resource Group $getResourceGroup does not exists. Re-run script with correct details"
 			Exit
 		} else {
 			if (Get-AzADServicePrincipal -DisplayName $getVMName) {
