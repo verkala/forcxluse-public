@@ -4,9 +4,7 @@
   "parameters": {
     "principalId": {
       "type": "string",
-      "metadata": {
-        "description": "The principal to assign the role to"
-      }
+      "defaultValue": "26fe69d3-a3ad-400a-9981-ca03cd7279d9"
     }
   },
   "resources": [
@@ -16,7 +14,7 @@
       "name": "[guid(parameters('principalId'))]",
       "properties": {
         "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
-        "principalId": "26fe69d3-a3ad-400a-9981-ca03cd7279d9"
+        "principalId": "[parameters('principalId')]"
       }
     }
   ]
