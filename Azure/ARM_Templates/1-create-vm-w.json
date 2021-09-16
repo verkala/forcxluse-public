@@ -1,0 +1,99 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectName": {
+      "type": "string",
+      "defaultValue": "armtest00",
+      "metadata": {
+        "description": "Specifies a name for generating resource names."
+      }
+    },
+    "username": {
+      "type": "string",
+      "defaultValue": "ubuntu",
+      "metadata": {
+        "description": "Specifies a username for the Virtual Machine."
+      }
+    },
+    "password": {
+      "type": "secureString",
+      "defaultValue": "Qwerty@123456",
+      "metadata": {
+        "description": "Specifies a password for the Virtual Machine."
+      }
+    },
+    "size": {
+      "type": "string",
+      "defaultValue": "Standard B1s",
+      "allowedValues": [
+        "Standard B1s",
+        "Standard D2s v3 - 2 vCPUs, 8 GiB memory ($0.096/hour)",
+        "Standard D4s v3 - 4 vCPUs, 16 GiB memory ($0.192/hour)"
+      ],
+      "metadata": {
+        "description": "Select a size for the Virtual Machine"
+      }
+    },
+    "NetworkIpToWhitelist": {
+      "type": "string",
+      "defaultValue": "49.205.242.239",
+      "metadata": {
+        "description": "Specifies your Network IP to whitelist for this VM application access"
+      }
+    }
+  },
+  "variables": {
+    "vNetName": "[concat(parameters('projectName'), '-vnet')]",
+    "vNetAddressPrefixes": "10.0.0.0/16",
+    "vNetSubnetName": "default",
+    "vNetSubnetAddressPrefix": "10.0.0.0/24",
+    "vmName": "[concat(parameters('projectName'), '-vm')]",
+    "publicIPAddressName": "[concat(parameters('projectName'), '-ip')]",
+    "networkInterfaceName": "Get1ClickReport-nic",
+    "networkSecurityGroupName": "[concat(parameters('projectName'), '-nsg')]",
+    "nsgsourceports": "[if(empty(parameters('NetworkIpToWhitelist')), '*', parameters('NetworkIpToWhitelist'))]",
+    "Standard B1s": "Standard_B1s",
+    "Standard D2s v3 - 2 vCPUs, 8 GiB memory ($0.096/hour)": "Standard_D2s_v3",
+    "Standard D4s v3 - 4 vCPUs, 16 GiB memory ($0.192/hour)": "Standard_D4s_v3"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2019-12-01",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables(parameters('size'))]"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[parameters('username')]",
+          "adminPassword": "[parameters('password')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "canonical",
+            "offer": "0001-com-ubuntu-server-focal",
+            "sku": "20_04-lts-gen2",
+            "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "fromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
+            }
+          ]
+        }
+      },
+      "identity": {
+        "type": "systemAssigned"
+      }
+    }
+  ]
+}
