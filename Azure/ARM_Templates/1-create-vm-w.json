@@ -100,7 +100,10 @@
     "principalId": {
       "type": "string",
       "value": "[reference(resourceId('Microsoft.Compute/virtualMachines', variables('vmName')),'2019-12-01', 'Full').identity.principalId]"
-    }
+    },
+    "location": {
+      "type": "string",
+      "value": "[resourceGroup().location]"
+     }
   }
 }
- 
