@@ -4,7 +4,7 @@
   "parameters": {
     "projectName": {
       "type": "string",
-      "defaultValue": "armtest00",
+      "defaultValue": "armtest001",
       "metadata": {
         "description": "Specifies a name for generating resource names."
       }
@@ -50,7 +50,7 @@
     "vNetSubnetAddressPrefix": "10.0.0.0/24",
     "vmName": "[concat(parameters('projectName'), '-vm')]",
     "publicIPAddressName": "[concat(parameters('projectName'), '-ip')]",
-    "networkInterfaceName": "null-null-Bloomz-build-db-20210907125053106",
+    "networkInterfaceName": "Get1ClickReport-nic",
     "networkSecurityGroupName": "[concat(parameters('projectName'), '-nsg')]",
     "nsgsourceports": "[if(empty(parameters('NetworkIpToWhitelist')), '*', parameters('NetworkIpToWhitelist'))]",
     "Standard B1s": "Standard_B1s",
@@ -95,6 +95,12 @@
         "type": "systemAssigned"
       }
     }
-  ]
+  ],
+  "outputs": {
+    "principalId": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.Compute/virtualMachines', variables('vmName')),'2019-12-01', 'Full').identity.principalId]"
+    }
+  }
 }
  
