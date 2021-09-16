@@ -2,18 +2,19 @@
   "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "principalId": {
-      "type": "string"
+    "roleNameGuid": {
+      "type": "string",
+      "defaultValue": "[newGuid()]"
     }
   },
   "resources": [
     {
       "type": "Microsoft.Authorization/roleAssignments",
       "apiVersion": "2021-04-01-preview",
-      "name": "[guid(parameters('principalId'))]",
+      "name": "[parameters('roleNameGuid')]",
       "properties": {
         "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
-        "principalId": "[parameters('principalId')]"
+        "principalId": "9008ae5c-aa9b-4767-a894-7552d609df28"
       }
     }
   ]
