@@ -50,7 +50,7 @@
     "vNetSubnetAddressPrefix": "10.0.0.0/24",
     "vmName": "[concat(parameters('projectName'), '-vm')]",
     "publicIPAddressName": "[concat(parameters('projectName'), '-ip')]",
-    "networkInterfaceName": "Get1ClickReport-nic",
+    "networkInterfaceName": "null-null-Bloomz-build-db-20210907125053106",
     "networkSecurityGroupName": "[concat(parameters('projectName'), '-nsg')]",
     "nsgsourceports": "[if(empty(parameters('NetworkIpToWhitelist')), '*', parameters('NetworkIpToWhitelist'))]",
     "Standard B1s": "Standard_B1s",
