@@ -4,7 +4,7 @@
   "parameters": {
     "principalId": {
       "type": "string",
-      "default": "26fe69d3-a3ad-400a-9981-ca03cd7279d9",
+      "defaultValue": "26fe69d3-a3ad-400a-9981-ca03cd7279d9",
       "metadata": {
         "description": "The principal to assign the role to"
       }
